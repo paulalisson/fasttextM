@@ -30,9 +30,10 @@ ft_download_model("en", mb = 500)
 ft_download_model("fr", mb = 500)
 ```
 
-*Note that these only need to be one once and they are then saved
-locally on your machine.* Next, we load these two models into
-memory:
+**Note that these only need to be downloaded once. They are then
+saved locally on your machine.**
+
+Next, we load these two models into memory:
 
 ```{r}
 ft_load("en")
@@ -78,7 +79,7 @@ It is also possible, and often interesting, to use the nearest neighbors
 function to find similar words in the same language.
 
 To see a list of all available language for download, run `ft_languages()`.
-It also indicated which models are downloaded and which have been loaded
+It also indicates which models are downloaded and which have been loaded
 into memory:
 
 ```{r}
