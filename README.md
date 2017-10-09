@@ -15,13 +15,97 @@ To install, grab the development version using devtools:
 devtools::install_github("statsmaths/fasttextM")
 ```
 
+The basic installation of the package contains a very small set
+of embeddings in English and French for testing purposes. To do
+any real work, we need to install the full versions of these.
+Here we use only the top 500MB's of the file; the full file is
+6GB but more frequent words are contained at the top and we find
+that the first 500-1000MB's are all we ever need in practice. Feel
+free to reduce the number depending on your needs, internet speed,
+and disk space.
 
+```{r}
+library(fasttextM)
+ft_download_model("en", mb = 500)
+ft_download_model("fr", mb = 500)
+```
 
+*Note that these only need to be one once and they are then saved
+locally on your machine.* Next, we load these two models into
+memory:
 
+```{r}
+ft_load("en")
+ft_load("fr")
+```
 
+We can now compute the embeddings of words in either language. Each
+of these embeddings is a length 300 vector:
+
+```{r}
+en_embed <- ft_embed(words = c("hello", "fish", "cheese"),
+                      lang = "en")
+en_embed[,1:20]
+```
+```
+          [,1]     [,2]      [,3]     [,4]      [,5]     [,6]     [,7]     [,8]
+[1,] -0.159450 -0.18259  0.033443  0.18813 -0.067903 -0.13663 -0.25559  0.11000
+[2,]  0.010938  0.32371 -0.169970  0.42405 -0.447940  0.15972  0.31668 -0.15638
+[3,]  0.207420  0.04882  0.078373 -0.24411 -0.247880  0.35715  0.12923 -0.38060
+         [,9]     [,10]     [,11]    [,12]     [,13]    [,14]    [,15]
+[1,]  0.17275 0.0519710 -0.023302 0.038866 -0.245150 -0.21588 0.359250
+[2,] -0.18606 0.0088676  0.167340 0.212200 -0.048738 -0.11182 0.098233
+[3,]  0.40952 0.3056300 -0.209410 0.174500  0.070295 -0.39164 0.300000
+         [,16]     [,17]    [,18]   [,19]    [,20]
+[1,] -0.082526  0.121760 -0.26775 0.10072 -0.13639
+[2,] -0.151830  0.043405 -0.22468 0.19034 -0.30115
+[3,] -0.454120 -0.141620 -0.17220 0.24395 -0.18230
+```
+
+More interestingly, we can see the words that are close to these words
+in the French embedding:
+
+```{r}
+en_embed <- ft_nn(words = c("hello", "fish", "cheese"),
+                  lang = "en", lang_output = "fr", n = 10)
+dim(en_embed)
+```
+```
+
+```
+
+It is also possible, and often interesting, to use the nearest neighbors
+function to find similar words in the same language.
+
+To see a list of all available language for download, run `ft_languages()`.
+It also indicated which models are downloaded and which have been loaded
+into memory:
+
+```{r}
+ft_languages()[20:30,]
+```
+```
+   iso_language_name iso_code installed loaded
+20           Persian       fa
+21           Finnish       fi
+22            French       fr         *      *
+23   Western Frisian       fy
+24          Galician       gl
+25          Gujarati       gu
+26   Hebrew (modern)       he
+27             Hindi       hi
+28          Croatian       hr
+29         Hungarian       hu
+30          Armenian       hy
+```
+
+The package is a work in progress. If you need some functionality not
+supported yet, please open a Issue and we will attempt to get it working
+for the next release.
 
 ## Note
 
-Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md). By participating in this project you agree to abide by its terms.
+Please note that this project is released with a [Contributor Code of Conduct](CONDUCT.md).
+By participating in this project you agree to abide by its terms.
 
 
