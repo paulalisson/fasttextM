@@ -45,10 +45,10 @@ ft_languages <- function() {
 #' @author Taylor B. Arnold, \email{taylor.arnold@@acm.org}
 #'
 #' @examples
-#'ft_load(lang = "en")
+#'ft_load_model(lang = "en")
 #'
 #' @export
-ft_load <- function(lang = "en") {
+ft_load_model <- function(lang = "en") {
 
   output_location <- system.file("extdata", package="fasttextM")
   fname <- sprintf("%s/%s.Rds", output_location, lang)
@@ -63,7 +63,7 @@ ft_load <- function(lang = "en") {
 #' 300-dimensional embedding of each element. The
 #' embedding is given in reference to a particular
 #' language. The model must have been loaded
-#' using the function \code{\link{ft_load}}.
+#' using the function \code{\link{ft_load_model}}.
 #'
 #'
 #' @param  words      a character vector of the words
@@ -82,7 +82,7 @@ ft_load <- function(lang = "en") {
 #' @author Taylor B. Arnold, \email{taylor.arnold@@acm.org}
 #'
 #' @examples
-#'ft_load(lang = "en")
+#'ft_load_model(lang = "en")
 #'ft_embed(c("the", "and", "I", "banana"), lang = "en")
 #'
 #' @export
@@ -90,7 +90,7 @@ ft_embed <- function(words, lang = "en") {
 
   if (!(lang %in% names(volatiles))) {
     stop(sprintf("language '%s' has not yet been loaded; ", lang),
-         sprintf("call ft_load('%s') and try again", lang))
+         sprintf("call ft_load_model('%s') and try again", lang))
   }
 
   # create an empty matrix of missing values
@@ -138,25 +138,40 @@ ft_embed <- function(words, lang = "en") {
 #' @author Taylor B. Arnold, \email{taylor.arnold@@acm.org}
 #'
 #' @examples
-#'ft_load(lang = "en")
-#'#ft_load(lang = "fr")
-#'#ft_nn(c("the", "and", "I"), lang = "en", lang_out = "fr")
+#'ft_load_model(lang = "en")
+#'ft_load_model(lang = "fr")
+#'ft_nn(c("the", "and", "I"), lang = "en", lang_out = "fr", nn = 5)
 #'
 #' @export
 ft_nn <- function(words, lang = "en", lang_out = lang, nn = 10L) {
 
   if (!(lang %in% names(volatiles))) {
     stop(sprintf("language '%s' has not yet been loaded; ", lang),
-         sprintf("call ft_load('%s') and try again", lang))
+         sprintf("call ft_load_model('%s') and try again", lang))
   }
   if (!(lang_out %in% names(volatiles))) {
     stop(sprintf("language '%s' has not yet been loaded; ", lang_out),
-         sprintf("call ft_load('%s') and try again", lang_out))
+         sprintf("call ft_load_model('%s') and try again", lang_out))
   }
 
+  # create an empty matrix of missing values
+  output <- matrix(NA_real_, ncol = nn, nrow = length(words))
 
+  # determine which words match the vocabulary
+  words_lower <- stringi::stri_trans_tolower(words)
+  id <- !is.na(match(words_lower, rownames(volatiles[[lang]])))
 
+  # for the matches, fill in with the embedding values
+  if (any(id)) {
+    v <- volatiles[[lang]][words_lower[id],,drop = FALSE]
+    d <- v %*% t(volatiles[[lang_out]])
+    d <- t(d) / sqrt(rowSums(volatiles[[lang_out]]^2))
+    d <- t(d) / sqrt(rowSums(v^2))
+    out <- t( apply(d, 1, function(u) colnames(d)[order(u, decreasing = TRUE)[1:nn]]) )
+    output[id,] <- out
+  }
 
+  return(output)
 }
 
 

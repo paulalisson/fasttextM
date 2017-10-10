@@ -36,8 +36,8 @@ saved locally on your machine.**
 Next, we load these two models into memory:
 
 ```{r}
-ft_load("en")
-ft_load("fr")
+ft_load_model("en")
+ft_load_model("fr")
 ```
 
 We can now compute the embeddings of words in either language. Each
