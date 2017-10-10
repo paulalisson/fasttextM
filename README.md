@@ -1,6 +1,6 @@
 ## fasttextM: Fast Multilingual Word Embeddings
 
-**Author:** Taylor B. Arnold, Nicolas Bailler, Paula Liss√≥n<br/>
+**Authors:** Taylor B. Arnold, Nicolas Bailler, Paula Liss√≥n<br/>
 **License:** [LGPL-2](https://opensource.org/licenses/LGPL-2.1)
 
  [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/statsmaths/fasttextM?branch=master&svg=true)](https://ci.appveyor.com/project/statsmaths/fasttextM) [![Travis-CI Build Status](https://travis-ci.org/statsmaths/fasttextM.svg?branch=master)](https://travis-ci.org/statsmaths/fasttextM) [![Coverage Status](https://img.shields.io/codecov/c/github/statsmaths/fasttextM/master.svg)](https://codecov.io/github/statsmaths/fasttextM?branch=master)
@@ -45,7 +45,7 @@ of these embeddings is a length 300 vector:
 
 ```{r}
 en_embed <- ft_embed(words = c("hello", "fish", "cheese"),
-                      lang = "en")
+                     lang = "en")
 en_embed[,1:20]
 ```
 ```
@@ -67,15 +67,26 @@ More interestingly, we can see the words that are close to these words
 in the French embedding:
 
 ```{r}
-en_embed <- ft_nn(words = c("hello", "fish", "cheese"),
-                  lang = "en", lang_output = "fr", n = 10)
-dim(en_embed)
+en_embed <- ft_nn(words = c("jump", "fish", "cheese", "city", "swim"),
+                  lang = "en", lang_out = "fr", n = 10)
+en_embed
 ```
+```
+     [,1]       [,2]       [,3]        [,4]        [,5]        [,6]
+[1,] "saut"     "sauts"    "sautant"   "Èlancer"   "sauter"    "saute"
+[2,] "poissons" "poisson"  "anguilles" "crevettes" "anguille"  "salmonidÈs"
+[3,] "fromage"  "fromages" "confiture" "beurre"    "saucisson" "confitures"
+[4,] "ville"    "villes"   "capitale"  "faubourgs" "mÈgapole"  "quartier"
+[5,] "nager"    "nage"     "nageurs"   "nageant"   "natation"  "nagent"
+     [,7]        [,8]         [,9]          [,10]
+[1,] "sauteurs"  "sauteur"    "tamgho"      "grimper"
+[2,] "pÍchÈes"   "Ècrevisses" "crevette"    "pÍchÈs"
+[3,] "pommes"    "babeurre"   "charcuterie" "saucissons"
+[4,] "municipal" "banlieue"   "citÈ"        "quartiers"
+[5,] "natatoire" "nagÈ"       "nageur"      "plongeon"
 ```
 
-```
-
-It is also possible, and often interesting, to use the nearest neighbors
+It is also possible, and often interesting, to use the nearest neighbours
 function to find similar words in the same language.
 
 To see a list of all available language for download, run `ft_languages()`.
