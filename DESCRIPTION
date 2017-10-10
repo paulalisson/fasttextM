@@ -13,7 +13,7 @@ Imports:
     iotools,
     stringi
 License: LGPL-2
-URL: https://statsmaths.github.io/fasttextM/
+URL: http://github.com/statsmaths/fasttextM/ 
 BugReports: http://github.com/statsmaths/fasttextM/issues
 LazyData: true
 RoxygenNote: 6.0.1
