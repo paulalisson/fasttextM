@@ -73,17 +73,17 @@ en_embed
 ```
 ```
      [,1]       [,2]       [,3]        [,4]        [,5]        [,6]
-[1,] "saut"     "sauts"    "sautant"   "élancer"   "sauter"    "saute"
-[2,] "poissons" "poisson"  "anguilles" "crevettes" "anguille"  "salmonidés"
+[1,] "saut"     "sauts"    "sautant"   "Ã©lancer"   "sauter"    "saute"
+[2,] "poissons" "poisson"  "anguilles" "crevettes" "anguille"  "salmonidÃ©s"
 [3,] "fromage"  "fromages" "confiture" "beurre"    "saucisson" "confitures"
-[4,] "ville"    "villes"   "capitale"  "faubourgs" "mégapole"  "quartier"
+[4,] "ville"    "villes"   "capitale"  "faubourgs" "mÃ©gapole"  "quartier"
 [5,] "nager"    "nage"     "nageurs"   "nageant"   "natation"  "nagent"
      [,7]        [,8]         [,9]          [,10]
 [1,] "sauteurs"  "sauteur"    "tamgho"      "grimper"
-[2,] "pêchées"   "écrevisses" "crevette"    "pêchés"
+[2,] "pÃªchÃ©es"   "Ã©crevisses" "crevette"    "pÃªchÃ©s"
 [3,] "pommes"    "babeurre"   "charcuterie" "saucissons"
-[4,] "municipal" "banlieue"   "cité"        "quartiers"
-[5,] "natatoire" "nagé"       "nageur"      "plongeon"
+[4,] "municipal" "banlieue"   "citÃ©"        "quartiers"
+[5,] "natatoire" "nagÃ©"       "nageur"      "plongeon"
 ```
 
 It is also possible, and often interesting, to use the nearest neighbours
