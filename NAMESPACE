@@ -3,5 +3,5 @@
 export(ft_download_model)
 export(ft_embed)
 export(ft_languages)
-export(ft_load)
+export(ft_load_model)
 export(ft_nn)

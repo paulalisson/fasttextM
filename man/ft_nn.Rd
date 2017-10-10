@@ -34,9 +34,9 @@ select a different language for the nearest neighbors
 than is used in the input embedding.
 }
 \examples{
-ft_load(lang = "en")
-#ft_load(lang = "fr")
-#ft_nn(c("the", "and", "I"), lang = "en", lang_out = "fr")
+ft_load_model(lang = "en")
+ft_load_model(lang = "fr")
+ft_nn(c("the", "and", "I"), lang = "en", lang_out = "fr", nn = 5)
 
 }
 \author{

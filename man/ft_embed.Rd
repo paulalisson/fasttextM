@@ -26,10 +26,10 @@ Given a vector words, this function returns the
 300-dimensional embedding of each element. The
 embedding is given in reference to a particular
 language. The model must have been loaded
-using the function \code{\link{ft_load}}.
+using the function \code{\link{ft_load_model}}.
 }
 \examples{
-ft_load(lang = "en")
+ft_load_model(lang = "en")
 ft_embed(c("the", "and", "I", "banana"), lang = "en")
 
 }
