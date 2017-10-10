@@ -1,0 +1,9 @@
+^LICENSE$
+^README\.md$
+^\.travis\.yml$
+^appveyor\.yml$
+^CONDUCT\.md$
+^codecov\.yml$
+^cran-comments\.md$
+^CONTRIBUTING.md$
+^docs
